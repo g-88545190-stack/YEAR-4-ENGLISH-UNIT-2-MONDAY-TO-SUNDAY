@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Year 4 English - Unit 2: Monday to Sunday 词汇与语法大闯关</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Noto+Sans+SC:wght@500;700;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Fredoka', 'Noto Sans SC', sans-serif;
+      background: linear-gradient(135deg, #DBEAFE 0%, #FEF3C7 50%, #E0E7FF 100%);
+      min-height: 100vh;
+      user-select: none;
+      overflow-x: hidden;
+    }
+
+    /* 主体立体卡片 */
+    .panel-card {
+      background: rgba(255, 255, 255, 0.97);
+      border: 4px solid #3B82F6;
+      box-shadow: 0 10px 0 #2563EB, 0 18px 30px rgba(37, 99, 235, 0.16);
+      border-radius: 28px;
+    }
+
+    /* 闪卡容器 */
+    .flashcard-box {
+      background: linear-gradient(180deg, #FFFBEB 0%, #FEF3C7 100%);
+      border: 4px solid #F59E0B;
+      box-shadow: 0 8px 0 #D97706;
+      border-radius: 24px;
+      transition: all 0.3s ease;
+    }
+
+    .flashcard-box.grammar-mode {
+      background: linear-gradient(180deg, #F3E8FF 0%, #E9D5FF 100%);
+      border-color: #9333EA;
+      box-shadow: 0 8px 0 #7E22CE;
+    }
+
+    /* 3D 按钮效果 */
+    .btn-3d {
+      transition: all 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      top: 0;
+    }
+    .btn-3d:active:not(:disabled) {
+      top: 4px;
+      box-shadow: 0 1px 0 currentColor !important;
+    }
+    .btn-3d:disabled {
+      opacity: 0.52;
+      cursor: not-allowed;
+      filter: grayscale(35%);
+    }
+
+    /* 选项按钮 */
+    .option-btn {
+      background: #FFFFFF;
+      border: 3px solid #93C5FD;
+      box-shadow: 0 5px 0 #60A5FA;
+      color: #1E3A8A;
+    }
+    .option-btn:hover:not(:disabled) {
+      background: #EFF6FF;
+      border-color: #2563EB;
+      transform: translateY(-2px);
+    }
+
+    /* 动画 */
+    @keyframes popIn {
+      0% { transform: scale(0.82); opacity: 0; }
+      70% { transform: scale(1.05); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .animate-pop {
+      animation: popIn 0.3s ease-out forwards;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
+    .animate-shake {
+      animation: shake 0.4s ease-in-out;
+    }
+
+    @keyframes soundWave {
+      0%, 100% { height: 7px; }
+      50% { height: 22px; }
+    }
+    .wave-bar {
+      width: 4px;
+      background-color: #F59E0B;
+      border-radius: 9999px;
+      animation: soundWave 0.55s infinite ease-in-out;
+    }
+    .wave-bar:nth-child(2) { animation-delay: 0.12s; }
+    .wave-bar:nth-child(3) { animation-delay: 0.24s; }
+    .wave-bar:nth-child(4) { animation-delay: 0.36s; }
+
+    /* 填空槽 */
+    .blank-slot {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 120px;
+      padding: 2px 12px;
+      margin: 0 5px;
+      border-bottom: 4px dashed #F59E0B;
+      background-color: #FEF3C7;
+      border-radius: 10px;
+      color: #D97706;
+      font-weight: 800;
+      transition: all 0.28s ease;
+    }
+    .blank-slot.filled {
+      border-bottom: 4px solid #10B981;
+      background-color: #D1FAE5;
+      color: #065F46;
+      transform: scale(1.04);
+    }
+
+    /* 难词华语括弧提示 */
+    .hint-cn {
+      color: #4F46E5;
+      font-size: 0.8em;
+      font-weight: 700;
+      background: #EEF2FF;
+      border: 1px solid #C7D2FE;
+      padding: 1px 6px;
+      border-radius: 8px;
+      margin-left: 2px;
+      display: inline-block;
+    }
+
+    /* 倒计时紧张模式红框闪烁 */
+    @keyframes dangerPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.55); border-color: #EF4444; }
+      50% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); border-color: #B91C1C; }
+    }
+    .tension-border {
+      animation: dangerPulse 0.65s infinite;
+    }
+  </style>
+</head>
+<body class="p-3 sm:p-5 flex flex-col items-center">
+
+  <!-- ==================== 顶部工具栏 ==================== -->
+  <header class="w-full max-w-7xl flex flex-wrap items-center justify-between gap-2 mb-4 px-1">
+    <div class="flex items-center gap-2.5 bg-white/95 px-4 py-2 rounded-full shadow-md border-2 border-blue-400">
+      <span class="text-2xl">📅</span>
+      <div>
+        <h1 class="text-sm sm:text-lg font-black text-blue-950 leading-tight">Year 4 English • Unit 2: Monday to Sunday</h1>
+        <p class="text-xs text-blue-700 font-bold">词汇 + Grammar 闪卡 (5秒/张) ➔ 听读双步测验 (20秒/题)</p>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-2">
+      <!-- 语速选择 -->
+      <div class="hidden md:flex items-center gap-1.5 bg-white/90 px-3 py-1.5 rounded-2xl border-2 border-indigo-200 text-xs font-bold text-indigo-900">
+        <span>🗣️ 朗读语速:</span>
+        <select id="speechRateSelect" class="bg-transparent font-extrabold text-indigo-700 focus:outline-none">
+          <option value="0.72">🐢 慢速 (0.72x)</option>
+          <option value="0.85" selected>🐇 标准 (0.85x)</option>
+          <option value="1.0">🚀 正常 (1.0x)</option>
+        </select>
+      </div>
+
+      <!-- 背景音乐开关 -->
+      <button id="bgmBtn" onclick="toggleBGM()" class="btn-3d bg-amber-100 border-2 border-amber-400 shadow-[0_4px_0_#D97706] text-amber-900 font-extrabold px-3 py-2 rounded-2xl text-xs sm:text-sm flex items-center gap-1">
+        <span id="bgmIcon">🎵</span>
+        <span id="bgmText">音乐开</span>
+      </button>
+
+      <!-- 教师成绩汇总 & Google Sheet 设置 -->
+      <button onclick="openTeacherModal()" class="btn-3d bg-indigo-100 border-2 border-indigo-400 shadow-[0_4px_0_#4F46E5] text-indigo-900 font-extrabold px-3 py-2 rounded-2xl text-xs sm:text-sm flex items-center gap-1">
+        <span>👩‍🏫</span>
+        <span>教师成绩汇总 & Sheet设置</span>
+      </button>
+
+      <!-- 返回主页 -->
+      <button id="homeBtn" onclick="confirmReturnHome()" class="hidden btn-3d bg-rose-100 border-2 border-rose-400 shadow-[0_4px_0_#E11D48] text-rose-800 font-extrabold px-3 py-2 rounded-2xl text-xs sm:text-sm">
+        🏠 更换关卡
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== 1. 学生登录与关卡选择界面 ==================== -->
+  <section id="loginScreen" class="w-full max-w-4xl panel-card p-6 sm:p-9 text-center my-auto">
+    <div class="text-5xl sm:text-6xl mb-2">📚🧹⚽🧠</div>
+    <span class="inline-block bg-blue-100 text-blue-800 border border-blue-300 px-3.5 py-1 rounded-full text-xs sm:text-sm font-black mb-2">
+      四年级英文课本 Unit 2 (Textbook pp. 15 – 26 • 41 词汇 + 6 项 Grammar)
+    </span>
+    <h2 class="text-2xl sm:text-4xl font-black text-blue-950 mb-4">Monday to Sunday 词汇与语法闯关</h2>
+
+    <!-- 学生资料输入表单 -->
+    <div class="bg-blue-50/90 border-2 border-blue-200 rounded-3xl p-4 sm:p-6 max-w-xl mx-auto mb-6 text-left">
+      <h3 class="text-base font-black text-blue-900 mb-3 flex items-center gap-2">
+        <span>🧑‍🎓</span>
+        <span>请先填写学生资料（完成后自动汇报成绩给老师）：</span>
+      </h3>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div class="sm:col-span-2">
+          <label class="block text-xs font-extrabold text-blue-800 mb-1">学生英文/华文姓名 (Name) *</label>
+          <input id="studentNameInput" type="text" placeholder="例如：Lim Jia Xin 林嘉欣" class="w-full px-3.5 py-2.5 rounded-xl border-2 border-blue-300 font-bold text-gray-800 focus:outline-none focus:border-blue-600 bg-white" />
+        </div>
+        <div>
+          <label class="block text-xs font-extrabold text-blue-800 mb-1">班级 (Class) *</label>
+          <select id="studentClassInput" class="w-full px-3 py-2.5 rounded-xl border-2 border-blue-300 font-bold text-gray-800 focus:outline-none focus:border-blue-600 bg-white">
+            <option value="4M">4M</option>
+            <option value="4K">4K</option>
+            <option value="4B">4B</option>
+            <option value="4J">4J</option>
+            <option value="4A">4A</option>
+            <option value="4C">4C</option>
+          </select>
+        </div>
+      </div>
+      <p id="loginErrorMsg" class="hidden text-rose-600 text-xs font-extrabold mt-2">⚠️ 请先输入你的姓名再开始闯关哦！</p>
+    </div>
+
+    <!-- 选择学习关卡 -->
+    <div class="max-w-3xl mx-auto">
+      <p class="text-sm font-black text-gray-700 mb-3">🎯 请选择闯关内容（左边闪卡每张看满 5 秒，解锁右边听读双步测验）：</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+        <button onclick="validateAndStart('stage1')" class="btn-3d bg-gradient-to-b from-amber-300 to-amber-400 border-2 border-amber-500 shadow-[0_5px_0_#D97706] text-amber-950 p-4 rounded-2xl text-left">
+          <div class="text-xs font-black bg-white/75 inline-block px-2 py-0.5 rounded-md mb-1">第 1 关 (17题)</div>
+          <div class="text-base font-black">科目与频率词 (1 - 17)</div>
+          <div class="text-xs font-bold opacity-80 mt-0.5">Art, Science, often, once, twice, timetable...</div>
+        </button>
+
+        <button onclick="validateAndStart('stage2')" class="btn-3d bg-gradient-to-b from-sky-300 to-sky-400 border-2 border-sky-500 shadow-[0_5px_0_#0284C7] text-sky-950 p-4 rounded-2xl text-left">
+          <div class="text-xs font-black bg-white/75 inline-block px-2 py-0.5 rounded-md mb-1">第 2 关 (16题)</div>
+          <div class="text-base font-black">日常与家务活 (18 - 33)</div>
+          <div class="text-xs font-bold opacity-80 mt-0.5">set the table, take out the rubbish, housework...</div>
+        </button>
+
+        <button onclick="validateAndStart('stage3_grammar')" class="btn-3d bg-gradient-to-b from-purple-300 to-purple-400 border-2 border-purple-500 shadow-[0_5px_0_#7E22CE] text-purple-950 p-4 rounded-2xl text-left">
+          <div class="text-xs font-black bg-white/75 inline-block px-2 py-0.5 rounded-md mb-1">第 3 关 (14题)</div>
+          <div class="text-base font-black">活动 + Grammar 语法 (34-41 + G1-G6)</div>
+          <div class="text-xs font-bold opacity-80 mt-0.5">survey, delicious + What / How often / has to...</div>
+        </button>
+
+        <button onclick="validateAndStart('grammar_only')" class="btn-3d bg-gradient-to-b from-fuchsia-500 to-purple-600 border-2 border-purple-800 shadow-[0_5px_0_#581C87] text-white p-4 rounded-2xl text-left">
+          <div class="text-xs font-black bg-black/25 inline-block px-2 py-0.5 rounded-md mb-1">语法特训 (10题)</div>
+          <div class="text-base font-black">🧠 Grammar 专项精练 (pp.19-20)</div>
+          <div class="text-xs font-bold text-purple-100 mt-0.5">Wh-questions & To-infinitive (has/have to)</div>
+        </button>
+
+        <button onclick="validateAndStart('quick12')" class="btn-3d bg-gradient-to-b from-emerald-400 to-emerald-500 border-2 border-emerald-600 shadow-[0_5px_0_#047857] text-white p-4 rounded-2xl text-left">
+          <div class="text-xs font-black bg-black/20 inline-block px-2 py-0.5 rounded-md mb-1">随堂抽测 (12题)</div>
+          <div class="text-base font-black">⚡ 词汇 + 语法综合快测</div>
+          <div class="text-xs font-bold text-emerald-50 mt-0.5">随机抽取 9 个词汇 + 3 道 Grammar 语法</div>
+        </button>
+
+        <button onclick="validateAndStart('all47')" class="btn-3d bg-gradient-to-b from-rose-500 to-rose-600 border-2 border-rose-700 shadow-[0_5px_0_#9F1239] text-white p-4 rounded-2xl text-left">
+          <div class="text-xs font-black bg-black/20 inline-block px-2 py-0.5 rounded-md mb-1">终极总复习 (47题)</div>
+          <div class="text-base font-black">🏆 Unit 2 全套 41词 + 6语法总挑战</div>
+          <div class="text-xs font-bold text-rose-100 mt-0.5">完整掌握 Unit 2 全部词汇与语法考点</div>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 2. 核心双栏分屏界面（左 Flashcard + 右 Quiz） ==================== -->
+  <main id="workspaceScreen" class="hidden w-full max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+
+    <!-- 左栏 (5列)：Flashcard 词汇与语法闪卡学习区 -->
+    <section id="leftFlashcardPanel" class="lg:col-span-5 panel-card p-5 sm:p-6 flex flex-col justify-between border-amber-500 shadow-[0_10px_0_#D97706]">
+      <div>
+        <!-- 左栏标题与学习进度 -->
+        <div class="flex items-center justify-between gap-2 mb-3 pb-3 border-b-2 border-amber-200">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">🗂️</span>
+            <div>
+              <h2 class="text-base sm:text-lg font-black text-amber-950">左边：词汇 & Grammar 闪卡</h2>
+              <p class="text-xs font-bold text-amber-700">每张看满 5 秒，全部看完解锁右边测验</p>
+            </div>
+          </div>
+          <span id="fcProgressBadge" class="bg-amber-200 text-amber-950 font-black px-3 py-1 rounded-full text-xs sm:text-sm">
+            1 / 14
+          </span>
+        </div>
+
+        <!-- 闪卡进度条 -->
+        <div class="w-full h-3 bg-amber-100 rounded-full overflow-hidden border border-amber-300 mb-4">
+          <div id="fcProgressBar" class="h-full bg-amber-500 transition-all duration-300" style="width: 6%;"></div>
+        </div>
+
+        <!-- 闪卡主体卡片 -->
+        <div id="flashcardBody" class="flashcard-box p-5 sm:p-6 text-center relative">
+          <div class="flex items-center justify-between mb-3">
+            <span id="fcNumberTag" class="bg-amber-500 text-white text-xs font-black px-2.5 py-1 rounded-lg">Vocab #1</span>
+            <button onclick="pronounceCurrentFlashcard()" class="btn-3d bg-white border-2 border-amber-400 shadow-[0_3px_0_#D97706] text-amber-900 text-xs font-extrabold px-3 py-1.5 rounded-xl flex items-center gap-1">
+              <span>🔊</span>
+              <span>朗读单词与例句</span>
+            </button>
+          </div>
+
+          <!-- 英文生字 / 语法点 -->
+          <div id="fcWord" class="text-2xl sm:text-3xl font-black text-blue-950 my-2 tracking-wide">
+            Art
+          </div>
+
+          <!-- 华语意思 -->
+          <div id="fcMeaning" class="inline-block bg-rose-100 border-2 border-rose-300 text-rose-800 text-lg sm:text-xl font-black px-4 py-1.5 rounded-2xl mb-3">
+            美术课
+          </div>
+
+          <!-- 语法解析 / 同义词 / 反义词提示 -->
+          <div id="fcExtraNotes" class="hidden text-xs font-bold text-purple-900 bg-purple-100 border border-purple-300 rounded-xl px-3 py-2 mb-3 text-left leading-relaxed">
+          </div>
+
+          <!-- 课本例句（难词带华语括弧提示） -->
+          <div class="bg-white/95 border-2 border-amber-300 rounded-2xl p-3.5 text-left">
+            <div class="text-xs font-black text-amber-700 mb-1">📖 课本例句 (Sentence)：</div>
+            <p id="fcSentence" class="text-base sm:text-lg font-bold text-gray-800 leading-relaxed">
+              Anna has Art on Mondays.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 底部翻卡控制按钮（含 5 秒强制倒计时） -->
+      <div class="mt-4 pt-3 border-t-2 border-amber-100">
+        <div class="flex items-center justify-between gap-3">
+          <button id="fcPrevBtn" onclick="prevFlashcard()" class="btn-3d bg-gray-200 border-2 border-gray-400 shadow-[0_4px_0_#9CA3AF] text-gray-800 font-extrabold px-4 py-3 rounded-2xl text-sm">
+            ⬅️ 上一张
+          </button>
+
+          <button id="fcNextBtn" onclick="nextFlashcard()" disabled class="flex-1 btn-3d bg-emerald-500 border-2 border-emerald-700 shadow-[0_4px_0_#047857] text-white font-black px-4 py-3 rounded-2xl text-sm sm:text-base flex items-center justify-center gap-2">
+            <span id="fcNextBtnText">⏳ 请仔细学习 (5s)</span>
+          </button>
+        </div>
+
+        <!-- 已全部看完后的提示 -->
+        <div id="fcAllDoneBanner" class="hidden mt-3 bg-emerald-100 border-2 border-emerald-400 text-emerald-900 rounded-2xl p-2.5 text-center text-xs sm:text-sm font-black animate-pop">
+          🎉 所有闪卡已学习完毕，右边测验已解锁！你也可以随时在左边翻看复习。
+        </div>
+      </div>
+    </section>
+
+    <!-- 右栏 (7列)：Quiz 听读双步限时测验区 -->
+    <section id="rightQuizPanel" class="lg:col-span-7 panel-card p-5 sm:p-7 relative flex flex-col justify-between overflow-hidden">
+
+      <!-- 锁定遮罩层：未完成左边全部 Flashcard 前严禁跳过作答 -->
+      <div id="quizLockOverlay" class="absolute inset-0 bg-slate-900/78 backdrop-blur-xs z-20 flex flex-col items-center justify-center p-6 text-center text-white">
+        <div class="bg-white/15 border-2 border-white/30 rounded-3xl p-6 sm:p-8 max-w-md backdrop-blur-md">
+          <div class="text-6xl mb-3 animate-bounce">🔒</div>
+          <h3 class="text-2xl font-black text-amber-300 mb-2">测验区暂未解锁！</h3>
+          <p class="text-sm sm:text-base font-bold text-blue-100 leading-relaxed mb-4">
+            老师规定：<span class="text-amber-300 underline">不能跳过左边 Flashcard</span> 直接完成测验！<br/>
+            请先认真学习左边所有词汇与 Grammar 闪卡（每张至少 5 秒）。
+          </p>
+          <div class="bg-black/45 rounded-2xl px-4 py-2.5 text-sm font-black text-emerald-300 border border-emerald-400/40">
+            当前闪卡学习进度：<span id="overlayFcCount">0 / 14</span> 张已完成
+          </div>
+        </div>
+      </div>
+
+      <!-- 右栏顶部状态：题号、20秒倒计时、实时对错统计 -->
+      <div>
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b-2 border-blue-100">
+          <div class="flex items-center gap-2 bg-blue-100 px-3.5 py-1.5 rounded-2xl border border-blue-300">
+            <span class="text-base">📝</span>
+            <span class="font-black text-blue-950 text-xs sm:text-sm">
+              测验第 <span id="qIndexDisplay" class="text-blue-600 text-base">1</span> / <span id="qTotalDisplay">14</span> 题
+            </span>
+            <span id="qTypeTag" class="bg-indigo-600 text-white text-[11px] font-black px-2 py-0.5 rounded-md">词汇</span>
+          </div>
+
+          <!-- 20秒倒计时条 -->
+          <div class="flex-1 min-w-[170px] max-w-xs mx-auto">
+            <div class="flex justify-between items-center text-xs font-black mb-1">
+              <span id="timerStatusLabel" class="text-amber-600">🎧 等待读完句子...</span>
+              <span id="timerText" class="text-sm sm:text-base text-emerald-700 font-black">20s</span>
+            </div>
+            <div class="w-full h-3.5 bg-gray-200 rounded-full overflow-hidden border border-gray-300 p-0.5">
+              <div id="timerBar" class="h-full bg-emerald-500 rounded-full transition-all duration-200" style="width: 100%;"></div>
+            </div>
+          </div>
+
+          <!-- 对错实时计数 -->
+          <div class="flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-2xl border border-slate-300 text-xs sm:text-sm font-black">
+            <span class="text-emerald-600">✅ <span id="liveRightCount">0</span></span>
+            <span class="text-gray-300">|</span>
+            <span class="text-rose-600">❌ <span id="liveWrongCount">0</span></span>
+          </div>
+        </div>
+
+        <!-- 双步提示条 -->
+        <div class="flex items-center justify-center gap-2 mb-4">
+          <div id="step1Pill" class="px-3.5 py-1 rounded-full text-xs font-black bg-blue-600 text-white shadow-sm">
+            1️⃣ 第一步：选英文/语法填空
+          </div>
+          <span class="text-gray-400 font-black">➔</span>
+          <div id="step2Pill" class="px-3.5 py-1 rounded-full text-xs font-black bg-gray-200 text-gray-500">
+            2️⃣ 第二步：选华语意思/用法
+          </div>
+        </div>
+
+        <!-- 听读锁定提示栏 -->
+        <div class="flex items-center justify-between gap-2 bg-amber-50 border-2 border-amber-300 rounded-2xl px-3.5 py-2.5 mb-4">
+          <div class="flex items-center gap-2">
+            <div id="soundWaveAnim" class="flex items-center gap-1 h-5">
+              <div class="wave-bar"></div>
+              <div class="wave-bar"></div>
+              <div class="wave-bar"></div>
+              <div class="wave-bar"></div>
+            </div>
+            <span id="audioLockNotice" class="text-xs sm:text-sm font-black text-amber-800">
+              🔊 正在朗读句子，必须等句子读完后才能作答！
+            </span>
+          </div>
+          <button onclick="replayQuizSentence()" class="btn-3d bg-amber-400 border-2 border-amber-600 shadow-[0_3px_0_#B45309] text-amber-950 font-black px-3 py-1.5 rounded-xl text-xs shrink-0">
+            🔁 再听一遍
+          </button>
+        </div>
+
+        <!-- 句子展示卡片（较难词汇带华语括弧提示） -->
+        <div class="bg-blue-50/80 border-2 border-blue-200 rounded-3xl p-4 sm:p-6 mb-5 text-center">
+          <div class="text-xs font-bold text-indigo-600 mb-2">💡 提示：括弧内为较难生字的华语意思</div>
+          <div id="sentenceContainer" class="text-lg s
